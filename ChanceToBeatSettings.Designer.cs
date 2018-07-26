@@ -140,7 +140,7 @@
             "Plain",
             "Vertical",
             "Horizontal"});
-            this.cmbGradientType.Location = new System.Drawing.Point(293, 6);
+            this.cmbGradientType.Location = new System.Drawing.Point(293, 5);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(321, 24);
             this.cmbGradientType.TabIndex = 4;
@@ -275,6 +275,7 @@
             this.dataGridSplits.RowTemplate.Height = 24;
             this.dataGridSplits.Size = new System.Drawing.Size(611, 230);
             this.dataGridSplits.TabIndex = 10;
+            this.dataGridSplits.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridSplits_CellValidating);
             // 
             // SplitNames
             // 

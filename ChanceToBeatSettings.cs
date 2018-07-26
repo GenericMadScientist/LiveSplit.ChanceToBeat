@@ -2,6 +2,7 @@
 using LiveSplit.TimeFormatters;
 using LiveSplit.UI;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -173,6 +174,37 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
+        public IList<double> ChanceOfResetBySegment()
+        {
+            var chances = new List<double>();
+
+            for (var i = 0; i < dataGridSplits.Rows.Count; i++)
+            {
+                string chanceText = (string)dataGridSplits[1, i].Value;
+
+                if (string.IsNullOrEmpty(chanceText))
+                {
+                    chances.Add(0.0);
+                }
+                else
+                {
+                    var success = double.TryParse(chanceText, out double chance);
+                    if (success)
+                    {
+                        chance = Math.Min(chance, 100.0);
+                        chance = Math.Max(chance, 0.0);
+                        chances.Add(chance);
+                    }
+                    else
+                    {
+                        chances.Add(0.0);
+                    }
+                }
+            }
+
+            return chances;
+        }
+
         private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnColor1.Visible = cmbGradientType.SelectedItem.ToString() != "Plain";
@@ -236,6 +268,30 @@ namespace LiveSplit.ChanceToBeat
             foreach (var name in segmentNames)
             {
                 dataGridSplits.Rows.Add(name, "");
+            }
+        }
+
+        private void dataGridSplits_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            var headerText = dataGridSplits.Columns[e.ColumnIndex].HeaderText;
+
+            if (!headerText.Equals("Reset Chance"))
+            {
+                return;
+            }
+
+            var chanceText = e.FormattedValue.ToString();
+
+            if (string.IsNullOrEmpty(chanceText))
+            {
+                return;
+            }
+
+            var success = double.TryParse(chanceText, out double chance);
+
+            if (!success || (chance < 0.0) || (chance > 100.0))
+            {
+                e.Cancel = true;
             }
         }
     }

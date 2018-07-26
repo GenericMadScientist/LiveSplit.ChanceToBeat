@@ -179,7 +179,7 @@ namespace LiveSplit.ChanceToBeat
                 }
             }
 
-            var compProb = CompletionProbability(curSplitIndex);
+            var compProb = CompletionChance(curSplitIndex);
             return (compProb * numbOfSuccessfulAttempts) / numbOfSimulations;
         }
 
@@ -265,9 +265,16 @@ namespace LiveSplit.ChanceToBeat
             return splits[splits.Count - 1 - (int)Math.Floor(roll)];
         }
 
-        private double CompletionProbability(int currentSplit)
+        private double CompletionChance(int currentSplit)
         {
-            return 1.0;
+            var completionChance = 1.0;
+
+            foreach (var resetChance in Settings.ChanceOfResetBySegment().Skip(currentSplit))
+            {
+                completionChance *= (100.0 - resetChance) / 100.0;
+            }
+
+            return completionChance;
         }
 
         private void AdjustProbabilityEstimate<T>(object sender, T e)
