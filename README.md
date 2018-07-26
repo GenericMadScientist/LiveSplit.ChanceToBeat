@@ -4,8 +4,8 @@ A LiveSplit component to estimate the probability of beating a specified time.
 
 ## Install
 
-Download the lastest version from the Releases page and put ChanceToBeat.dll in
-LiveSplit's components folder.
+Download the lastest version from the Releases page and put
+LiveSplit.ChanceToBeat.dll in LiveSplit's components folder.
 
 ## Setup
 
