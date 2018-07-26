@@ -15,4 +15,4 @@ target time.
 
 You can also set the probability for the run ending on any given split. This is
 particularly good if the run can die at a certain point due to RNG, or it's easy
-to take a death, that isn't reflected in the splits.
+to take a death, and that isn't reflected in the splits.
