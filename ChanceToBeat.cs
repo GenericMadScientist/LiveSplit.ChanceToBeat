@@ -54,6 +54,7 @@ namespace LiveSplit.ChanceToBeat
             state.RunManuallyModified += AdjustProbabilityEstimate;
 
             Settings.CutoffChanged += AdjustProbabilityEstimate;
+            Settings.ResetChancesChanged += AdjustProbabilityEstimate;
         }
 
         private void DrawBackground(Graphics g, LiveSplitState state, float width, float height)

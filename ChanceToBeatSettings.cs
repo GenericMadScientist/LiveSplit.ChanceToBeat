@@ -82,7 +82,9 @@ namespace LiveSplit.ChanceToBeat
                 OnCutoffChanged(EventArgs.Empty);
             }
         }
+
         public event EventHandler CutoffChanged;
+        public event EventHandler ResetChancesChanged;
 
         public ChanceToBeatSettings()
         {
@@ -110,6 +112,8 @@ namespace LiveSplit.ChanceToBeat
 
             txtBoxText.DataBindings.Add("Text", this, "ProbabilityText", false,
                 DataSourceUpdateMode.OnPropertyChanged);
+
+            dataGridSplits.CellValueChanged += (s, e) => ResetChancesChanged?.Invoke(this, e);
         }
 
         public XmlNode GetSettings(XmlDocument document)
@@ -208,11 +212,6 @@ namespace LiveSplit.ChanceToBeat
             return chances;
         }
 
-        protected virtual void OnCutoffChanged(EventArgs e)
-        {
-            CutoffChanged?.Invoke(this, e);
-        }
-
         private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnColor1.Visible = cmbGradientType.SelectedItem.ToString() != "Plain";
@@ -301,6 +300,11 @@ namespace LiveSplit.ChanceToBeat
             {
                 e.Cancel = true;
             }
+        }
+
+        protected virtual void OnCutoffChanged(EventArgs e)
+        {
+            CutoffChanged?.Invoke(this, e);
         }
     }
 }
