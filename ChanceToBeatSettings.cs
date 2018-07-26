@@ -78,8 +78,11 @@ namespace LiveSplit.ChanceToBeat
                     var formatter = new RegularTimeFormatter();
                     txtBoxTimeCutoff.Text = formatter.Format(value);
                 }
+
+                OnCutoffChanged(EventArgs.Empty);
             }
         }
+        public event EventHandler CutoffChanged;
 
         public ChanceToBeatSettings()
         {
@@ -203,6 +206,11 @@ namespace LiveSplit.ChanceToBeat
             }
 
             return chances;
+        }
+
+        protected virtual void OnCutoffChanged(EventArgs e)
+        {
+            CutoffChanged?.Invoke(this, e);
         }
 
         private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
