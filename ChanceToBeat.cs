@@ -179,7 +179,7 @@ namespace LiveSplit.ChanceToBeat
                 }
             }
 
-            var compProb = CompletionProbability(state, curSplitIndex);
+            var compProb = CompletionProbability(curSplitIndex);
             return (compProb * numbOfSuccessfulAttempts) / numbOfSimulations;
         }
 
@@ -265,61 +265,9 @@ namespace LiveSplit.ChanceToBeat
             return splits[splits.Count - 1 - (int)Math.Floor(roll)];
         }
 
-        private double CompletionProbability(LiveSplitState state, int currentSplit)
+        private double CompletionProbability(int currentSplit)
         {
-            var method = state.CurrentTimingMethod;
-            var history = state.Run.Select(x => new List<bool>()).ToList();
-
-            foreach (var attempt in state.Run.AttemptHistory)
-            {
-                var ind = attempt.Index;
-                var ignoreNextHistory = false;
-                foreach (var segment in state.Run)
-                {
-                    if (segment.SegmentHistory.TryGetValue(ind, out Time attemptHistory))
-                    {
-                        if (attemptHistory[method] == null)
-                        {
-                            if (!ignoreNextHistory)
-                            {
-                                history[state.Run.IndexOf(segment)].Add(false);
-                            }
-                            ignoreNextHistory = true;
-                        }
-                        else if (!ignoreNextHistory)
-                        {
-                            history[state.Run.IndexOf(segment)].Add(true);
-                        }
-                        else
-                        {
-                            ignoreNextHistory = false;
-                        }
-                    }
-                }
-            }
-
-            var compProb = 1.0;
-
-            foreach (var split in history.Skip(currentSplit))
-            {
-                var weightedSuccesses = split
-                    .Select((x, i) => new
-                    {
-                        Weight = Math.Pow(Weight, split.Count - i),
-                        Status = x
-                    });
-                var successSplitWeight = weightedSuccesses
-                    .Where(x => x.Status)
-                    .Select(x => x.Weight)
-                    .Sum();
-                var totalSplitWeight = weightedSuccesses
-                    .Select(x => x.Weight)
-                    .Sum();
-
-                compProb *= successSplitWeight / totalSplitWeight;
-            }
-
-            return compProb;
+            return 1.0;
         }
 
         private void AdjustProbabilityEstimate<T>(object sender, T e)
