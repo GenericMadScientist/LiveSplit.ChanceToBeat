@@ -43,9 +43,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxText = new System.Windows.Forms.TextBox();
             this.txtBoxTimeCutoff = new System.Windows.Forms.TextBox();
+            this.dataGridSplits = new System.Windows.Forms.DataGridView();
+            this.SplitNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ResetChances = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -65,17 +69,19 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxText, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxTimeCutoff, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridSplits, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 246);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 482);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnColor2
@@ -134,7 +140,7 @@
             "Plain",
             "Vertical",
             "Horizontal"});
-            this.cmbGradientType.Location = new System.Drawing.Point(293, 5);
+            this.cmbGradientType.Location = new System.Drawing.Point(293, 6);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(321, 24);
             this.cmbGradientType.TabIndex = 4;
@@ -251,21 +257,54 @@
             this.txtBoxTimeCutoff.Validating += new System.ComponentModel.CancelEventHandler(this.txtBoxTimeCutoff_Validating);
             this.txtBoxTimeCutoff.Validated += new System.EventHandler(this.txtBoxTimeCutoff_Validated);
             // 
-            // TimeProbabilitySettings
+            // dataGridSplits
+            // 
+            this.dataGridSplits.AllowUserToAddRows = false;
+            this.dataGridSplits.AllowUserToDeleteRows = false;
+            this.dataGridSplits.AllowUserToResizeColumns = false;
+            this.dataGridSplits.AllowUserToResizeRows = false;
+            this.dataGridSplits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSplits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SplitNames,
+            this.ResetChances});
+            this.tableLayoutPanel1.SetColumnSpan(this.dataGridSplits, 4);
+            this.dataGridSplits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridSplits.Location = new System.Drawing.Point(3, 249);
+            this.dataGridSplits.Name = "dataGridSplits";
+            this.dataGridSplits.RowHeadersVisible = false;
+            this.dataGridSplits.RowTemplate.Height = 24;
+            this.dataGridSplits.Size = new System.Drawing.Size(611, 230);
+            this.dataGridSplits.TabIndex = 10;
+            // 
+            // SplitNames
+            // 
+            this.SplitNames.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SplitNames.HeaderText = "Segment Name";
+            this.SplitNames.Name = "SplitNames";
+            this.SplitNames.ReadOnly = true;
+            // 
+            // ResetChances
+            // 
+            this.ResetChances.HeaderText = "Reset Chance";
+            this.ResetChances.Name = "ResetChances";
+            this.ResetChances.Width = 150;
+            // 
+            // ChanceToBeatSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "TimeProbabilitySettings";
+            this.Name = "ChanceToBeatSettings";
             this.Padding = new System.Windows.Forms.Padding(9);
-            this.Size = new System.Drawing.Size(635, 264);
+            this.Size = new System.Drawing.Size(635, 500);
             this.Load += new System.EventHandler(this.TimeProbabilitySettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -287,5 +326,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBoxText;
         private System.Windows.Forms.TextBox txtBoxTimeCutoff;
+        private System.Windows.Forms.DataGridView dataGridSplits;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SplitNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ResetChances;
     }
 }

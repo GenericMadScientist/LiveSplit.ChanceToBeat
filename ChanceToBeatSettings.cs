@@ -4,6 +4,7 @@ using LiveSplit.UI;
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -29,7 +30,28 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
-        public LiveSplitState CurrentState { get; set; }
+        private LiveSplitState state;
+        public LiveSplitState CurrentState
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                dataGridSplits.Rows.Clear();
+                if (state != null)
+                {
+                    state.RunManuallyModified -= UpdateResetChanceNames;
+                }
+                state = value;
+                if (state != null)
+                {
+                    state.RunManuallyModified += UpdateResetChanceNames;
+                    UpdateResetChanceNames(state, EventArgs.Empty);
+                }
+            }
+        }
         public bool Display2Rows { get; set; }
 
         public LayoutMode Mode { get; set; }
@@ -203,6 +225,17 @@ namespace LiveSplit.ChanceToBeat
                 catch
                 {
                 }
+            }
+        }
+
+        private void UpdateResetChanceNames(object sender, EventArgs e)
+        {
+            dataGridSplits.Rows.Clear();
+            var segmentNames = ((LiveSplitState)sender).Run.Select(x => x.Name).ToList();
+            
+            foreach (var name in segmentNames)
+            {
+                dataGridSplits.Rows.Add(name, "");
             }
         }
     }
