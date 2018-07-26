@@ -35,6 +35,8 @@ namespace LiveSplit.ChanceToBeat
 
         public ChanceToBeat(LiveSplitState state)
         {
+            currentState = state;
+
             Settings = new ChanceToBeatSettings()
             {
                 CutoffTime = GetPBFromState(state),
@@ -43,15 +45,15 @@ namespace LiveSplit.ChanceToBeat
             };
             InternalComponent = new InfoPercentComponent(null, null)
             {
-                Percentage = 100.0 * SubTargetProbability(state, Settings.CutoffTime)
+                Percentage = 100.0 * SubTargetProbability(Settings.CutoffTime)
             };
-
-            currentState = state;
 
             state.OnSplit += AdjustProbabilityEstimate;
             state.OnUndoSplit += AdjustProbabilityEstimate;
             state.OnReset += AdjustProbabilityEstimate;
             state.RunManuallyModified += AdjustProbabilityEstimate;
+
+            Settings.CutoffChanged += AdjustProbabilityEstimate;
         }
 
         private void DrawBackground(Graphics g, LiveSplitState state, float width, float height)
@@ -147,14 +149,14 @@ namespace LiveSplit.ChanceToBeat
             return pb;
         }
 
-        private double? SubTargetProbability(LiveSplitState state, TimeSpan? time)
+        private double? SubTargetProbability(TimeSpan? time)
         {
             if (time == null)
             {
                 return null;
             }
 
-            var fullHistory = GetSplitData(state);
+            var fullHistory = GetSplitData(currentState);
             foreach (var splits in fullHistory)
             {
                 if (splits.Count == 0)
@@ -163,7 +165,7 @@ namespace LiveSplit.ChanceToBeat
                 }
             }
 
-            var lastSplit = MostRecentSplit(state);
+            var lastSplit = MostRecentSplit(currentState);
             var lastSplitTime = lastSplit.Value;
             var curSplitIndex = lastSplit.Key + 1;
 
@@ -179,7 +181,7 @@ namespace LiveSplit.ChanceToBeat
                 }
             }
 
-            var compProb = CompletionProbability(state, curSplitIndex);
+            var compProb = CompletionProbability(currentState, curSplitIndex);
             return (compProb * numbOfSuccessfulAttempts) / numbOfSimulations;
         }
 
@@ -325,7 +327,7 @@ namespace LiveSplit.ChanceToBeat
         private void AdjustProbabilityEstimate<T>(object sender, T e)
         {
             InternalComponent.Percentage =
-                100.0 * SubTargetProbability((LiveSplitState)sender, Settings.CutoffTime);
+                100.0 * SubTargetProbability(Settings.CutoffTime);
         }
     }
 }
