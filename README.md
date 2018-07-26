@@ -1,0 +1,14 @@
+# Chance To Beat
+
+A LiveSplit component to estimate the probability of beating a specified time.
+
+## Install
+
+Download the lastest version from the Releases page and put ChanceToBeat.dll in
+LiveSplit's components folder.
+
+## Setup
+
+Add the component to the Layout (Information -> Chance To Beat). From here you
+can change the text displayed (so like "PB Chance" or "Sub 1 Chance") and the
+target time.
