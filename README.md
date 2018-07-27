@@ -15,11 +15,11 @@ target time. For the target time, you can either fix to your Personal Best or
 to a custom time.
 
 The weight is how much to take older attempts into consideration. The extremes
-are 0 (only look at the last attempts for each split) and 1 (treat all attempts
-equally). Lower is better during quick improvement, higher is better for slower
+are 0 (only look at the last splits for each segments) and 1 (treat all attempts
+equally). Lower is better for quick improvement, higher is better for slow
 improvement. For comparison, the average segments feature that comes with
 LiveSplit uses 0.75.
 
-You can also set the probability for the run ending on any given split. This is
-particularly good if the run can die at a certain point due to RNG, or it's easy
-to take a death, and that isn't reflected in the splits.
+You can also set the probability for the run ending on any given segment. This
+is particularly good if the run can die at a certain point due to RNG, or it's
+easy to take a death, and that isn't reflected in the splits.
