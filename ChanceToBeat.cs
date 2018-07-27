@@ -135,6 +135,8 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
+        public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
+
         private double? SubTargetProbability(TimeSpan? time)
         {
             if (time == null)
@@ -283,16 +285,6 @@ namespace LiveSplit.ChanceToBeat
         {
             InternalComponent.Percentage =
                 100.0 * SubTargetProbability(Settings.CutoffTime);
-        }
-
-        public int GetSettingsHashCode()
-        {
-            for (var i = 0; i < 100000; i++)
-            {
-                var x = Settings.GetSettingsHashCode();
-            }
-
-            return 0;
         }
     }
 }
