@@ -107,11 +107,13 @@ namespace LiveSplit.ChanceToBeat
                 }
                 trackBarWeight.Value = Convert.ToInt32(trackBarWeight.Maximum * weight);
                 toolTipWeight.SetToolTip(trackBarWeight, weight.ToString("F3", CultureInfo.InvariantCulture));
+                WeightChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public event EventHandler CutoffChanged;
         public event EventHandler ResetChancesChanged;
+        public event EventHandler WeightChanged;
 
         public ChanceToBeatSettings()
         {

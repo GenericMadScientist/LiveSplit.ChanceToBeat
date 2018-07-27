@@ -31,8 +31,6 @@ namespace LiveSplit.ChanceToBeat
 
         private LiveSplitState currentState;
 
-        private const double Weight = 0.95;
-
         public ChanceToBeat(LiveSplitState state)
         {
             currentState = state;
@@ -55,6 +53,7 @@ namespace LiveSplit.ChanceToBeat
 
             Settings.CutoffChanged += AdjustProbabilityEstimate;
             Settings.ResetChancesChanged += AdjustProbabilityEstimate;
+            Settings.WeightChanged += AdjustProbabilityEstimate;
         }
 
         private void DrawBackground(Graphics g, LiveSplitState state, float width, float height)
@@ -255,7 +254,20 @@ namespace LiveSplit.ChanceToBeat
         // floor(log_w(1 - (1 - w^N)X)) has the desired distribution.
         private TimeSpan RandomlySelectSplit(IList<TimeSpan> splits, Random rng)
         {
-            var roll = Math.Log(1 - (1 - Math.Pow(Weight, splits.Count)) * rng.NextDouble(), Weight);
+            var roll = 0.0;
+
+            if (Settings.Weight == 0.0)
+            {
+                roll = 0.0;
+            }
+            else if (Settings.Weight == 1.0)
+            {
+                roll = rng.Next(0, splits.Count);
+            }
+            else
+            {
+                roll = Math.Log(1 - (1 - Math.Pow(Settings.Weight, splits.Count)) * rng.NextDouble(), Settings.Weight);
+            }
 
             if (roll < 0.0)
             {
