@@ -160,7 +160,7 @@
             "Plain",
             "Vertical",
             "Horizontal"});
-            this.cmbGradientType.Location = new System.Drawing.Point(293, 6);
+            this.cmbGradientType.Location = new System.Drawing.Point(293, 5);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(321, 24);
             this.cmbGradientType.TabIndex = 4;

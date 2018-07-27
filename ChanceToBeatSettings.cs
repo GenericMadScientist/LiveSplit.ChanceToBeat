@@ -240,6 +240,32 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
+        public int GetSettingsHashCode()
+        {
+            var hashes = new int[]
+                { TextColor.GetHashCode(),
+                  OverrideTextColor.GetHashCode(),
+                  BackgroundColor.GetHashCode(),
+                  BackgroundColor2.GetHashCode(),
+                  GradientString.GetHashCode(),
+                  Display2Rows.GetHashCode(),
+                  ProbabilityText.GetHashCode(),
+                  Weight.GetHashCode(),
+                  CutoffTime.GetHashCode(),
+                  chkUsePb.Checked.GetHashCode(),
+                  dataGridSplits.Rows.GetHashCode()
+                };
+
+            // Rough hashing algorithm thanks to https://stackoverflow.com/questions/3404715/c-sharp-hashcode-for-array-of-ints
+            var hash = hashes.Length;
+            foreach (var element in hashes)
+            {
+                hash = unchecked(314159 * hash + element);
+            }
+
+            return hash;
+        }
+
         private void TimeProbabilitySettings_Load(object sender, EventArgs e)
         {
             chkOverrideTextColor_CheckedChanged(null, null);
