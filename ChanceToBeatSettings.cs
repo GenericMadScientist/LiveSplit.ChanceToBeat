@@ -83,8 +83,12 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
+        public double Weight { get; set; }
+
         public event EventHandler CutoffChanged;
         public event EventHandler ResetChancesChanged;
+
+        private ToolTip toolTipWeight;
 
         public ChanceToBeatSettings()
         {

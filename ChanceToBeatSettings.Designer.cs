@@ -46,10 +46,13 @@
             this.dataGridSplits = new System.Windows.Forms.DataGridView();
             this.SplitNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResetChances = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.trackBarWeight = new System.Windows.Forms.TrackBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWeight)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -69,19 +72,24 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxText, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtBoxTimeCutoff, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridSplits, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridSplits, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.trackBarWeight, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 482);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 532);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnColor2
@@ -140,7 +148,7 @@
             "Plain",
             "Vertical",
             "Horizontal"});
-            this.cmbGradientType.Location = new System.Drawing.Point(293, 5);
+            this.cmbGradientType.Location = new System.Drawing.Point(293, 6);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(321, 24);
             this.cmbGradientType.TabIndex = 4;
@@ -269,11 +277,11 @@
             this.ResetChances});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridSplits, 4);
             this.dataGridSplits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridSplits.Location = new System.Drawing.Point(3, 249);
+            this.dataGridSplits.Location = new System.Drawing.Point(3, 285);
             this.dataGridSplits.Name = "dataGridSplits";
             this.dataGridSplits.RowHeadersVisible = false;
             this.dataGridSplits.RowTemplate.Height = 24;
-            this.dataGridSplits.Size = new System.Drawing.Size(611, 230);
+            this.dataGridSplits.Size = new System.Drawing.Size(611, 244);
             this.dataGridSplits.TabIndex = 10;
             this.dataGridSplits.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridSplits_CellValidating);
             // 
@@ -290,6 +298,29 @@
             this.ResetChances.Name = "ResetChances";
             this.ResetChances.Width = 150;
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 255);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(206, 17);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Weight to previous attempts:";
+            // 
+            // trackBarWeight
+            // 
+            this.trackBarWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.trackBarWeight, 3);
+            this.trackBarWeight.Location = new System.Drawing.Point(215, 249);
+            this.trackBarWeight.Maximum = 1000;
+            this.trackBarWeight.Name = "trackBarWeight";
+            this.trackBarWeight.Size = new System.Drawing.Size(399, 30);
+            this.trackBarWeight.SmallChange = 50;
+            this.trackBarWeight.TabIndex = 12;
+            this.trackBarWeight.TickFrequency = 0;
+            this.trackBarWeight.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
             // ChanceToBeatSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -298,7 +329,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChanceToBeatSettings";
             this.Padding = new System.Windows.Forms.Padding(9);
-            this.Size = new System.Drawing.Size(635, 500);
+            this.Size = new System.Drawing.Size(635, 550);
             this.Load += new System.EventHandler(this.TimeProbabilitySettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -306,6 +337,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWeight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -330,5 +362,7 @@
         private System.Windows.Forms.DataGridView dataGridSplits;
         private System.Windows.Forms.DataGridViewTextBoxColumn SplitNames;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResetChances;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar trackBarWeight;
     }
 }
