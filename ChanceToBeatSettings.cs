@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
@@ -83,12 +84,34 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
-        public double Weight { get; set; }
+        private double weight;
+        public double Weight
+        {
+            get
+            {
+                return weight;
+            }
+            set
+            {
+                if (value <= 0.0)
+                {
+                    weight = 0.0;
+                }
+                else if (value >= 1.0)
+                {
+                    weight = 1.0;
+                }
+                else
+                {
+                    weight = value;
+                }
+                trackBarWeight.Value = Convert.ToInt32(trackBarWeight.Maximum * weight);
+                toolTipWeight.SetToolTip(trackBarWeight, weight.ToString("F3", CultureInfo.InvariantCulture));
+            }
+        }
 
         public event EventHandler CutoffChanged;
         public event EventHandler ResetChancesChanged;
-
-        private ToolTip toolTipWeight;
 
         public ChanceToBeatSettings()
         {
@@ -101,6 +124,7 @@ namespace LiveSplit.ChanceToBeat
             BackgroundColor2 = Color.Transparent;
             BackgroundGradient = GradientType.Plain;
             Display2Rows = false;
+            Weight = 0.75; // Weight used for average splits.
 
             chkOverrideTextColor.DataBindings.Add("Checked", this, "OverrideTextColor", false,
                 DataSourceUpdateMode.OnPropertyChanged);
@@ -138,6 +162,7 @@ namespace LiveSplit.ChanceToBeat
             GradientString = SettingsHelper.ParseString(element["BackgroundGradient"]);
             Display2Rows = SettingsHelper.ParseBool(element["Display2Rows"], false);
             ProbabilityText = SettingsHelper.ParseString(element["ProbabilityText"]);
+            Weight = SettingsHelper.ParseDouble(element["Weight"]);
 
             try
             {
@@ -191,6 +216,7 @@ namespace LiveSplit.ChanceToBeat
                 SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows) ^
                 SettingsHelper.CreateSetting(document, parent, "CutoffTime", CutoffTime) ^
                 SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText) ^
+                SettingsHelper.CreateSetting(document, parent, "Weight", Weight) ^
                 resetChances.GetHashCode();
         }
 
@@ -331,6 +357,11 @@ namespace LiveSplit.ChanceToBeat
             {
                 e.Cancel = true;
             }
+        }
+
+        private void trackBarWeight_Scroll(object sender, EventArgs e)
+        {
+            Weight = ((double)trackBarWeight.Value) / trackBarWeight.Maximum;
         }
 
         protected virtual void OnCutoffChanged(EventArgs e)

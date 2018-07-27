@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnColor2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.ResetChances = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBarWeight = new System.Windows.Forms.TrackBar();
+            this.toolTipWeight = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -320,6 +322,7 @@
             this.trackBarWeight.TabIndex = 12;
             this.trackBarWeight.TickFrequency = 0;
             this.trackBarWeight.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBarWeight.Scroll += new System.EventHandler(this.trackBarWeight_Scroll);
             // 
             // ChanceToBeatSettings
             // 
@@ -364,5 +367,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ResetChances;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar trackBarWeight;
+        private System.Windows.Forms.ToolTip toolTipWeight;
     }
 }
