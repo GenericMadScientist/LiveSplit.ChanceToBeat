@@ -150,7 +150,7 @@ namespace LiveSplit.ChanceToBeat
             {
                 for (var i = 0; i < timesTextList.Length; i++)
                 {
-                    if (double.TryParse(timesTextList[i], out double result) && (result == 0.0))
+                    if (double.TryParse(timesTextList[i], out double result) && ((result <= 0.0) || (result > 100.0)))
                     {
                         dataGridSplits[1, i].Value = "";
                     }
