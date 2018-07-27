@@ -143,6 +143,23 @@ namespace LiveSplit.ChanceToBeat
             {
                 CutoffTime = null;
             }
+
+            var timesTextList = element["ResetChances"].InnerText.Split();
+
+            if (timesTextList.Length == dataGridSplits.Rows.Count)
+            {
+                for (var i = 0; i < timesTextList.Length; i++)
+                {
+                    if (double.TryParse(timesTextList[i], out double result) && (result == 0.0))
+                    {
+                        dataGridSplits[1, i].Value = "";
+                    }
+                    else
+                    {
+                        dataGridSplits[1, i].Value = timesTextList[i];
+                    }
+                }
+            }
         }
 
         public int GetSettingsHashCode()
@@ -152,6 +169,15 @@ namespace LiveSplit.ChanceToBeat
 
         private int CreateSettingsNode(XmlDocument document, XmlElement parent)
         {
+            var resetChances = ChanceOfResetBySegment();
+
+            if (document != null)
+            {
+                var element = document.CreateElement("ResetChances");
+                element.InnerText = string.Join(" ", resetChances.Select(x => x.ToString()));
+                parent.AppendChild(element);
+            }
+
             return SettingsHelper.CreateSetting(document, parent, "Version", GetType().Assembly.GetName().Version) ^
                 SettingsHelper.CreateSetting(document, parent, "TextColor", TextColor) ^
                 SettingsHelper.CreateSetting(document, parent, "OverrideTextColor", OverrideTextColor) ^
@@ -160,7 +186,8 @@ namespace LiveSplit.ChanceToBeat
                 SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient) ^
                 SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows) ^
                 SettingsHelper.CreateSetting(document, parent, "CutoffTime", CutoffTime) ^
-                SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText);
+                SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText) ^
+                resetChances.GetHashCode();
         }
 
         private void TimeProbabilitySettings_Load(object sender, EventArgs e)
