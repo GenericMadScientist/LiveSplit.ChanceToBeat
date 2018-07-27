@@ -169,7 +169,28 @@ namespace LiveSplit.ChanceToBeat
         public XmlNode GetSettings(XmlDocument document)
         {
             var parent = document.CreateElement("Settings");
-            CreateSettingsNode(document, parent);
+
+            var resetChances = ChanceOfResetBySegment();
+
+            if (document != null)
+            {
+                var element = document.CreateElement("ResetChances");
+                element.InnerText = string.Join(" ", resetChances.Select(x => x.ToString()));
+                parent.AppendChild(element);
+            }
+
+            SettingsHelper.CreateSetting(document, parent, "Version", GetType().Assembly.GetName().Version);
+            SettingsHelper.CreateSetting(document, parent, "TextColor", TextColor);
+            SettingsHelper.CreateSetting(document, parent, "OverrideTextColor", OverrideTextColor);
+            SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor);
+            SettingsHelper.CreateSetting(document, parent, "BackgroundColor2", BackgroundColor2);
+            SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient);
+            SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows);
+            SettingsHelper.CreateSetting(document, parent, "CutoffTime", CutoffTime);
+            SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText);
+            SettingsHelper.CreateSetting(document, parent, "Weight", Weight);
+            SettingsHelper.CreateSetting(document, parent, "UsePb", chkUsePb.Checked);
+
             return parent;
         }
 
@@ -217,36 +238,6 @@ namespace LiveSplit.ChanceToBeat
                     }
                 }
             }
-        }
-
-        public int GetSettingsHashCode()
-        {
-            return CreateSettingsNode(null, null);
-        }
-
-        private int CreateSettingsNode(XmlDocument document, XmlElement parent)
-        {
-            var resetChances = ChanceOfResetBySegment();
-
-            if (document != null)
-            {
-                var element = document.CreateElement("ResetChances");
-                element.InnerText = string.Join(" ", resetChances.Select(x => x.ToString()));
-                parent.AppendChild(element);
-            }
-
-            return SettingsHelper.CreateSetting(document, parent, "Version", GetType().Assembly.GetName().Version) ^
-                SettingsHelper.CreateSetting(document, parent, "TextColor", TextColor) ^
-                SettingsHelper.CreateSetting(document, parent, "OverrideTextColor", OverrideTextColor) ^
-                SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor) ^
-                SettingsHelper.CreateSetting(document, parent, "BackgroundColor2", BackgroundColor2) ^
-                SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient) ^
-                SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows) ^
-                SettingsHelper.CreateSetting(document, parent, "CutoffTime", CutoffTime) ^
-                SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText) ^
-                SettingsHelper.CreateSetting(document, parent, "Weight", Weight) ^
-                SettingsHelper.CreateSetting(document, parent, "UsePb", chkUsePb.Checked) ^
-                resetChances.GetHashCode();
         }
 
         private void TimeProbabilitySettings_Load(object sender, EventArgs e)

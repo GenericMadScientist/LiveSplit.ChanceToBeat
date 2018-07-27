@@ -135,8 +135,6 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
-        public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
-
         private double? SubTargetProbability(TimeSpan? time)
         {
             if (time == null)
