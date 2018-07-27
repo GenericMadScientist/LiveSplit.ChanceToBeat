@@ -314,11 +314,11 @@
             // 
             this.trackBarWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.trackBarWeight, 3);
+            this.trackBarWeight.LargeChange = 10;
             this.trackBarWeight.Location = new System.Drawing.Point(215, 249);
             this.trackBarWeight.Maximum = 1000;
             this.trackBarWeight.Name = "trackBarWeight";
             this.trackBarWeight.Size = new System.Drawing.Size(399, 30);
-            this.trackBarWeight.SmallChange = 50;
             this.trackBarWeight.TabIndex = 12;
             this.trackBarWeight.TickFrequency = 0;
             this.trackBarWeight.TickStyle = System.Windows.Forms.TickStyle.None;
