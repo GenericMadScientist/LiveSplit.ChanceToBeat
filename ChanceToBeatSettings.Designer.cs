@@ -41,20 +41,25 @@
             this.lblTextColor = new System.Windows.Forms.Label();
             this.btnTextColor = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtBoxText = new System.Windows.Forms.TextBox();
-            this.txtBoxTimeCutoff = new System.Windows.Forms.TextBox();
             this.dataGridSplits = new System.Windows.Forms.DataGridView();
             this.SplitNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResetChances = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBarWeight = new System.Windows.Forms.TrackBar();
             this.toolTipWeight = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.chkUsePB = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtBoxTimeCutoff = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWeight)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -69,14 +74,13 @@
             this.tableLayoutPanel1.Controls.Add(this.chkTwoRows, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnColor1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbGradientType, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txtBoxText, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtBoxTimeCutoff, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.dataGridSplits, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.trackBarWeight, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtBoxText, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -84,14 +88,13 @@
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 532);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnColor2
@@ -161,7 +164,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 4);
             this.groupBox1.Controls.Add(this.tableLayoutPanel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(4, 76);
+            this.groupBox1.Location = new System.Drawing.Point(4, 112);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -232,40 +235,21 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 183);
+            this.label2.Location = new System.Drawing.Point(3, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(206, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "Text:";
             // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 219);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(206, 17);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Time Threshold:";
-            // 
             // txtBoxText
             // 
             this.txtBoxText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxText.Location = new System.Drawing.Point(293, 181);
+            this.tableLayoutPanel1.SetColumnSpan(this.txtBoxText, 3);
+            this.txtBoxText.Location = new System.Drawing.Point(215, 79);
             this.txtBoxText.Name = "txtBoxText";
             this.txtBoxText.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBoxText.Size = new System.Drawing.Size(321, 22);
+            this.txtBoxText.Size = new System.Drawing.Size(399, 22);
             this.txtBoxText.TabIndex = 8;
-            // 
-            // txtBoxTimeCutoff
-            // 
-            this.txtBoxTimeCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxTimeCutoff.Location = new System.Drawing.Point(293, 217);
-            this.txtBoxTimeCutoff.Name = "txtBoxTimeCutoff";
-            this.txtBoxTimeCutoff.Size = new System.Drawing.Size(321, 22);
-            this.txtBoxTimeCutoff.TabIndex = 9;
-            this.txtBoxTimeCutoff.Validating += new System.ComponentModel.CancelEventHandler(this.txtBoxTimeCutoff_Validating);
-            this.txtBoxTimeCutoff.Validated += new System.EventHandler(this.txtBoxTimeCutoff_Validated);
             // 
             // dataGridSplits
             // 
@@ -279,11 +263,11 @@
             this.ResetChances});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridSplits, 4);
             this.dataGridSplits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridSplits.Location = new System.Drawing.Point(3, 285);
+            this.dataGridSplits.Location = new System.Drawing.Point(3, 351);
             this.dataGridSplits.Name = "dataGridSplits";
             this.dataGridSplits.RowHeadersVisible = false;
             this.dataGridSplits.RowTemplate.Height = 24;
-            this.dataGridSplits.Size = new System.Drawing.Size(611, 244);
+            this.dataGridSplits.Size = new System.Drawing.Size(611, 278);
             this.dataGridSplits.TabIndex = 10;
             this.dataGridSplits.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridSplits_CellValidating);
             // 
@@ -304,7 +288,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 255);
+            this.label4.Location = new System.Drawing.Point(3, 321);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 17);
             this.label4.TabIndex = 11;
@@ -315,7 +299,7 @@
             this.trackBarWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.trackBarWeight, 3);
             this.trackBarWeight.LargeChange = 10;
-            this.trackBarWeight.Location = new System.Drawing.Point(215, 249);
+            this.trackBarWeight.Location = new System.Drawing.Point(215, 315);
             this.trackBarWeight.Maximum = 1000;
             this.trackBarWeight.Name = "trackBarWeight";
             this.trackBarWeight.Size = new System.Drawing.Size(399, 30);
@@ -323,6 +307,72 @@
             this.trackBarWeight.TickFrequency = 0;
             this.trackBarWeight.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarWeight.Scroll += new System.EventHandler(this.trackBarWeight_Scroll);
+            // 
+            // groupBox2
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 4);
+            this.groupBox2.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(4, 214);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(609, 94);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Time Cutoff";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.chkUsePB, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.txtBoxTimeCutoff, 1, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 19);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(601, 71);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // chkUsePB
+            // 
+            this.chkUsePB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUsePB.AutoSize = true;
+            this.tableLayoutPanel3.SetColumnSpan(this.chkUsePB, 2);
+            this.chkUsePB.Location = new System.Drawing.Point(9, 7);
+            this.chkUsePB.Margin = new System.Windows.Forms.Padding(9, 4, 4, 4);
+            this.chkUsePB.Name = "chkUsePB";
+            this.chkUsePB.Size = new System.Drawing.Size(588, 21);
+            this.chkUsePB.TabIndex = 0;
+            this.chkUsePB.Text = "Use Personal Best";
+            this.chkUsePB.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 45);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(196, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Custom Cutoff:";
+            // 
+            // txtBoxTimeCutoff
+            // 
+            this.txtBoxTimeCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxTimeCutoff.Location = new System.Drawing.Point(207, 43);
+            this.txtBoxTimeCutoff.Name = "txtBoxTimeCutoff";
+            this.txtBoxTimeCutoff.Size = new System.Drawing.Size(391, 22);
+            this.txtBoxTimeCutoff.TabIndex = 2;
+            this.txtBoxTimeCutoff.Validating += new System.ComponentModel.CancelEventHandler(this.txtBoxTimeCutoff_Validating);
+            this.txtBoxTimeCutoff.Validated += new System.EventHandler(this.txtBoxTimeCutoff_Validated);
             // 
             // ChanceToBeatSettings
             // 
@@ -332,7 +382,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChanceToBeatSettings";
             this.Padding = new System.Windows.Forms.Padding(9);
-            this.Size = new System.Drawing.Size(635, 550);
+            this.Size = new System.Drawing.Size(635, 650);
             this.Load += new System.EventHandler(this.TimeProbabilitySettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -341,6 +391,9 @@
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSplits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWeight)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -359,14 +412,17 @@
         private System.Windows.Forms.Label lblTextColor;
         private System.Windows.Forms.Button btnTextColor;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBoxText;
-        private System.Windows.Forms.TextBox txtBoxTimeCutoff;
         private System.Windows.Forms.DataGridView dataGridSplits;
         private System.Windows.Forms.DataGridViewTextBoxColumn SplitNames;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResetChances;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar trackBarWeight;
         private System.Windows.Forms.ToolTip toolTipWeight;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.CheckBox chkUsePB;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtBoxTimeCutoff;
     }
 }

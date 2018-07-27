@@ -277,6 +277,7 @@ namespace LiveSplit.ChanceToBeat
             {
                 roll = splits.Count - 1;
             }
+
             return splits[splits.Count - 1 - (int)Math.Floor(roll)];
         }
 
