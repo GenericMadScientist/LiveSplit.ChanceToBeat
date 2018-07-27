@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace LiveSplit.ChanceToBeat
 {
-    public partial class ChanceToBeatSettings : UserControl
+    public partial class ChanceToBeatSettings : UserControl, IDisposable
     {
         public Color TextColor { get; set; }
         public bool OverrideTextColor { get; set; }
@@ -44,14 +44,17 @@ namespace LiveSplit.ChanceToBeat
                 dataGridSplits.Rows.Clear();
                 if (state != null)
                 {
+                    state.OnReset -= UpdatePb;
                     state.RunManuallyModified -= UpdateResetChanceNames;
                 }
                 state = value;
                 if (state != null)
                 {
+                    state.OnReset += UpdatePb;
                     state.RunManuallyModified += UpdateResetChanceNames;
                     UpdateResetChanceNames(state, EventArgs.Empty);
                 }
+                PersonalBest = GetPbFromState(state);
             }
         }
         public bool Display2Rows { get; set; }
@@ -69,7 +72,7 @@ namespace LiveSplit.ChanceToBeat
             set
             {
                 cutoffTime = value;
-
+                
                 if (value == null)
                 {
                     txtBoxTimeCutoff.Text = "";
@@ -81,6 +84,23 @@ namespace LiveSplit.ChanceToBeat
                 }
 
                 OnCutoffChanged(EventArgs.Empty);
+            }
+        }
+
+        private TimeSpan? pb;
+        public TimeSpan? PersonalBest
+        {
+            get
+            {
+                return pb;
+            }
+            set
+            {
+                pb = value;
+                if (chkUsePb.Checked)
+                {
+                    CutoffTime = pb;
+                }
             }
         }
 
@@ -271,6 +291,26 @@ namespace LiveSplit.ChanceToBeat
             return chances;
         }
 
+        private TimeSpan? GetPbFromState(LiveSplitState state)
+        {
+            var attemptTimes = state.Run.AttemptHistory
+                .Select(x => x.Time[state.CurrentTimingMethod]);
+            TimeSpan? pb = null;
+
+            foreach (var time in attemptTimes)
+            {
+                if (time != null)
+                {
+                    if ((pb == null) || (TimeSpan.Compare((TimeSpan)pb, (TimeSpan)time) == 1))
+                    {
+                        pb = time;
+                    }
+                }
+            }
+
+            return pb;
+        }
+
         private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnColor1.Visible = cmbGradientType.SelectedItem.ToString() != "Plain";
@@ -369,6 +409,22 @@ namespace LiveSplit.ChanceToBeat
         protected virtual void OnCutoffChanged(EventArgs e)
         {
             CutoffChanged?.Invoke(this, e);
+        }
+
+        private void chkUsePb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUsePb.Checked)
+            {
+                CutoffTime = PersonalBest;
+            }
+
+            lblCustomCutoff.Enabled = !chkUsePb.Checked;
+            txtBoxTimeCutoff.Enabled = !chkUsePb.Checked;
+        }
+
+        private void UpdatePb(object sender, TimerPhase e)
+        {
+            PersonalBest = GetPbFromState(CurrentState);
         }
     }
 }

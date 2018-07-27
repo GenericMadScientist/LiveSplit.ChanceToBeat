@@ -13,10 +13,16 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (CurrentState != null)
+                {
+                    CurrentState.OnReset -= UpdatePb;
+                }
+
+                components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -40,19 +46,19 @@
             this.chkOverrideTextColor = new System.Windows.Forms.CheckBox();
             this.lblTextColor = new System.Windows.Forms.Label();
             this.btnTextColor = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtBoxText = new System.Windows.Forms.TextBox();
             this.dataGridSplits = new System.Windows.Forms.DataGridView();
             this.SplitNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResetChances = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBarWeight = new System.Windows.Forms.TrackBar();
-            this.toolTipWeight = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.chkUsePB = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.chkUsePb = new System.Windows.Forms.CheckBox();
+            this.lblCustomCutoff = new System.Windows.Forms.Label();
             this.txtBoxTimeCutoff = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBoxText = new System.Windows.Forms.TextBox();
+            this.toolTipWeight = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -124,9 +130,10 @@
             // 
             this.chkTwoRows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTwoRows.AutoSize = true;
-            this.chkTwoRows.Location = new System.Drawing.Point(3, 43);
+            this.chkTwoRows.Location = new System.Drawing.Point(9, 43);
+            this.chkTwoRows.Margin = new System.Windows.Forms.Padding(9, 4, 4, 4);
             this.chkTwoRows.Name = "chkTwoRows";
-            this.chkTwoRows.Size = new System.Drawing.Size(206, 21);
+            this.chkTwoRows.Size = new System.Drawing.Size(199, 21);
             this.chkTwoRows.TabIndex = 1;
             this.chkTwoRows.Text = "Display 2 Rows";
             this.chkTwoRows.UseVisualStyleBackColor = true;
@@ -231,26 +238,6 @@
             this.btnTextColor.UseVisualStyleBackColor = false;
             this.btnTextColor.Click += new System.EventHandler(this.ColorButtonClick);
             // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(206, 17);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Text:";
-            // 
-            // txtBoxText
-            // 
-            this.txtBoxText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.txtBoxText, 3);
-            this.txtBoxText.Location = new System.Drawing.Point(215, 79);
-            this.txtBoxText.Name = "txtBoxText";
-            this.txtBoxText.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBoxText.Size = new System.Drawing.Size(399, 22);
-            this.txtBoxText.TabIndex = 8;
-            // 
             // dataGridSplits
             // 
             this.dataGridSplits.AllowUserToAddRows = false;
@@ -327,8 +314,8 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.chkUsePB, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.chkUsePb, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lblCustomCutoff, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.txtBoxTimeCutoff, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 19);
@@ -340,39 +327,64 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(601, 71);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // chkUsePB
+            // chkUsePb
             // 
-            this.chkUsePB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUsePB.AutoSize = true;
-            this.tableLayoutPanel3.SetColumnSpan(this.chkUsePB, 2);
-            this.chkUsePB.Location = new System.Drawing.Point(9, 7);
-            this.chkUsePB.Margin = new System.Windows.Forms.Padding(9, 4, 4, 4);
-            this.chkUsePB.Name = "chkUsePB";
-            this.chkUsePB.Size = new System.Drawing.Size(588, 21);
-            this.chkUsePB.TabIndex = 0;
-            this.chkUsePB.Text = "Use Personal Best";
-            this.chkUsePB.UseVisualStyleBackColor = true;
+            this.chkUsePb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUsePb.AutoSize = true;
+            this.chkUsePb.Checked = true;
+            this.chkUsePb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tableLayoutPanel3.SetColumnSpan(this.chkUsePb, 2);
+            this.chkUsePb.Location = new System.Drawing.Point(9, 7);
+            this.chkUsePb.Margin = new System.Windows.Forms.Padding(9, 4, 4, 4);
+            this.chkUsePb.Name = "chkUsePb";
+            this.chkUsePb.Size = new System.Drawing.Size(588, 21);
+            this.chkUsePb.TabIndex = 0;
+            this.chkUsePb.Text = "Use Personal Best";
+            this.chkUsePb.UseVisualStyleBackColor = true;
+            this.chkUsePb.CheckedChanged += new System.EventHandler(this.chkUsePb_CheckedChanged);
             // 
-            // label3
+            // lblCustomCutoff
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 45);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(196, 17);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Custom Cutoff:";
+            this.lblCustomCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCustomCutoff.AutoSize = true;
+            this.lblCustomCutoff.Enabled = false;
+            this.lblCustomCutoff.Location = new System.Drawing.Point(4, 45);
+            this.lblCustomCutoff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCustomCutoff.Name = "lblCustomCutoff";
+            this.lblCustomCutoff.Size = new System.Drawing.Size(196, 17);
+            this.lblCustomCutoff.TabIndex = 1;
+            this.lblCustomCutoff.Text = "Custom Cutoff:";
             // 
             // txtBoxTimeCutoff
             // 
             this.txtBoxTimeCutoff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxTimeCutoff.Enabled = false;
             this.txtBoxTimeCutoff.Location = new System.Drawing.Point(207, 43);
             this.txtBoxTimeCutoff.Name = "txtBoxTimeCutoff";
             this.txtBoxTimeCutoff.Size = new System.Drawing.Size(391, 22);
             this.txtBoxTimeCutoff.TabIndex = 2;
             this.txtBoxTimeCutoff.Validating += new System.ComponentModel.CancelEventHandler(this.txtBoxTimeCutoff_Validating);
             this.txtBoxTimeCutoff.Validated += new System.EventHandler(this.txtBoxTimeCutoff_Validated);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(206, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Text:";
+            // 
+            // txtBoxText
+            // 
+            this.txtBoxText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.txtBoxText, 3);
+            this.txtBoxText.Location = new System.Drawing.Point(215, 79);
+            this.txtBoxText.Name = "txtBoxText";
+            this.txtBoxText.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtBoxText.Size = new System.Drawing.Size(399, 22);
+            this.txtBoxText.TabIndex = 8;
             // 
             // ChanceToBeatSettings
             // 
@@ -421,8 +433,8 @@
         private System.Windows.Forms.ToolTip toolTipWeight;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.CheckBox chkUsePB;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox chkUsePb;
+        private System.Windows.Forms.Label lblCustomCutoff;
         private System.Windows.Forms.TextBox txtBoxTimeCutoff;
     }
 }

@@ -37,7 +37,6 @@ namespace LiveSplit.ChanceToBeat
 
             Settings = new ChanceToBeatSettings()
             {
-                CutoffTime = GetPBFromState(state),
                 CurrentState = state,
                 ProbabilityText = "PB Chance"
             };
@@ -121,33 +120,22 @@ namespace LiveSplit.ChanceToBeat
 
         public void Dispose()
         {
-            currentState.OnSplit -= AdjustProbabilityEstimate;
-            currentState.OnUndoSplit -= AdjustProbabilityEstimate;
-            currentState.OnReset -= AdjustProbabilityEstimate;
-            currentState.RunManuallyModified -= AdjustProbabilityEstimate;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                currentState.OnSplit -= AdjustProbabilityEstimate;
+                currentState.OnUndoSplit -= AdjustProbabilityEstimate;
+                currentState.OnReset -= AdjustProbabilityEstimate;
+                currentState.RunManuallyModified -= AdjustProbabilityEstimate;
+            }
         }
 
         public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
-
-        private TimeSpan? GetPBFromState(LiveSplitState state)
-        {
-            var attemptTimes = state.Run.AttemptHistory
-                .Select(x => x.Time[state.CurrentTimingMethod]);
-            TimeSpan? pb = null;
-
-            foreach (var time in attemptTimes)
-            {
-                if (time != null)
-                {
-                    if ((pb == null) || (TimeSpan.Compare((TimeSpan)pb, (TimeSpan)time) == 1))
-                    {
-                        pb = time;
-                    }
-                }
-            }
-
-            return pb;
-        }
 
         private double? SubTargetProbability(TimeSpan? time)
         {
