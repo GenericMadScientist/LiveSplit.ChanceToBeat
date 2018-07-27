@@ -195,6 +195,12 @@ namespace LiveSplit.ChanceToBeat
                 CutoffTime = null;
             }
 
+            chkUsePb.Checked = SettingsHelper.ParseBool(element["UsePb"]);
+            if (chkUsePb.Checked)
+            {
+                CutoffTime = PersonalBest;
+            }
+
             var timesTextList = element["ResetChances"].InnerText.Split();
 
             if (timesTextList.Length == dataGridSplits.Rows.Count)
@@ -239,6 +245,7 @@ namespace LiveSplit.ChanceToBeat
                 SettingsHelper.CreateSetting(document, parent, "CutoffTime", CutoffTime) ^
                 SettingsHelper.CreateSetting(document, parent, "ProbabilityText", ProbabilityText) ^
                 SettingsHelper.CreateSetting(document, parent, "Weight", Weight) ^
+                SettingsHelper.CreateSetting(document, parent, "UsePb", chkUsePb.Checked) ^
                 resetChances.GetHashCode();
         }
 
