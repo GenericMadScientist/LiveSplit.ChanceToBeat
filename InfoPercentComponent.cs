@@ -62,7 +62,7 @@ namespace LiveSplit.ChanceToBeat
         {
             if (percentage == null)
             {
-                InformationValue = "–";
+                InformationValue = "-";
             }
             else
             {
