@@ -40,7 +40,7 @@ namespace LiveSplit.ChanceToBeat
                 CurrentState = state,
                 ProbabilityText = "PB Chance"
             };
-            InternalComponent = new InfoPercentComponent(null, null)
+            InternalComponent = new InfoPercentComponent(null)
             {
                 Percentage = 100.0 * SubTargetProbability(Settings.CutoffTime)
             };

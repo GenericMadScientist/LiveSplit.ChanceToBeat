@@ -14,12 +14,12 @@ namespace LiveSplit.ChanceToBeat
 {
     public partial class ChanceToBeatSettings : UserControl, IDisposable
     {
-        public Color TextColor { get; set; }
-        public bool OverrideTextColor { get; set; }
+        public Color TextColor { get; set; } = Color.FromArgb(255, 255, 255);
+        public bool OverrideTextColor { get; set; } = false;
 
-        public Color BackgroundColor { get; set; }
-        public Color BackgroundColor2 { get; set; }
-        public GradientType BackgroundGradient { get; set; }
+        public Color BackgroundColor { get; set; } = Color.Transparent;
+        public Color BackgroundColor2 { get; set; } = Color.Transparent;
+        public GradientType BackgroundGradient { get; set; } = GradientType.Plain;
         public string GradientString
         {
             get
@@ -57,7 +57,7 @@ namespace LiveSplit.ChanceToBeat
                 PersonalBest = GetPbFromState(state);
             }
         }
-        public bool Display2Rows { get; set; }
+        public bool Display2Rows { get; set; } = false;
 
         public LayoutMode Mode { get; set; }
 
@@ -104,7 +104,7 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
-        private double weight;
+        private double weight = 0.75; // Weight used by average splits.
         public double Weight
         {
             get
@@ -138,15 +138,6 @@ namespace LiveSplit.ChanceToBeat
         public ChanceToBeatSettings()
         {
             InitializeComponent();
-            
-            TextColor = Color.FromArgb(255, 255, 255);
-            OverrideTextColor = false;
-
-            BackgroundColor = Color.Transparent;
-            BackgroundColor2 = Color.Transparent;
-            BackgroundGradient = GradientType.Plain;
-            Display2Rows = false;
-            Weight = 0.75; // Weight used for average splits.
 
             chkOverrideTextColor.DataBindings.Add("Checked", this, "OverrideTextColor", false,
                 DataSourceUpdateMode.OnPropertyChanged);
@@ -256,14 +247,8 @@ namespace LiveSplit.ChanceToBeat
                   dataGridSplits.Rows.GetHashCode()
                 };
 
-            // Rough hashing algorithm thanks to https://stackoverflow.com/questions/3404715/c-sharp-hashcode-for-array-of-ints
-            var hash = hashes.Length;
-            foreach (var element in hashes)
-            {
-                hash = unchecked(314159 * hash + element);
-            }
-
-            return hash;
+            // Rough hashing algorithm thanks to https://stackoverflow.com/questions/3404715/
+            return hashes.Aggregate(hashes.Length, (hash, element) => unchecked(314159 * hash + element));
         }
 
         private void TimeProbabilitySettings_Load(object sender, EventArgs e)
@@ -315,6 +300,7 @@ namespace LiveSplit.ChanceToBeat
             return chances;
         }
 
+        // Gets the PB according to the current timing method.
         private TimeSpan? GetPbFromState(LiveSplitState state)
         {
             var attemptTimes = state.Run.AttemptHistory
@@ -359,7 +345,9 @@ namespace LiveSplit.ChanceToBeat
         private void txtBoxTimeCutoff_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(txtBoxTimeCutoff.Text))
+            {
                 return;
+            }
 
             try
             {
@@ -452,3 +440,4 @@ namespace LiveSplit.ChanceToBeat
         }
     }
 }
+ 

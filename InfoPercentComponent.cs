@@ -34,10 +34,9 @@ namespace LiveSplit.ChanceToBeat
             }
         }
 
-        public InfoPercentComponent(string informationName, double? percentage)
-            : base(informationName, "")
+        public InfoPercentComponent(string informationName)
+            : base(informationName, null)
         {
-            Percentage = percentage;
         }
 
         public override void PrepareDraw(LiveSplitState state, LayoutMode mode)
