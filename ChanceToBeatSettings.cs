@@ -286,7 +286,8 @@ namespace LiveSplit.ChanceToBeat
                     var success = double.TryParse(chanceText, out double chance);
                     if (success)
                     {
-                        chance = Math.Min(chance, 100.0);
+                        chance /= 100.0;
+                        chance = Math.Min(chance, 1.0);
                         chance = Math.Max(chance, 0.0);
                         chances.Add(chance);
                     }

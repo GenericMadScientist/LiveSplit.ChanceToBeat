@@ -159,7 +159,7 @@ namespace LiveSplit.ChanceToBeat
 
             var numbOfSimulations = 20000;
             var numbOfSuccessfulAttempts = 0;
-            var rng = new Random(0); // Consistent initial seed an evil hack to lower variation the runner sees.
+            var rng = new Random(0); // Consistent initial seed an evil hack to reduce fluctuations the runner sees.
 
             for (var i = 0; i < numbOfSimulations; i++)
             {
@@ -222,10 +222,20 @@ namespace LiveSplit.ChanceToBeat
             return history;
         }
 
+        // Simulate an attempt given history. This method assumes each segment has at least one
+        // split.
         private TimeSpan SimulateAttempt(IList<IList<TimeSpan>> history, Random rng, int curSplit)
         {
             var time = TimeSpan.Zero;
-            for (var i = curSplit; i < history.Count; ++i)
+
+            // We do curSegment invocations of rng.NextDouble() so as an attempt progresses, the
+            // same simulations are generated.
+            for (var i = 0; i < curSplit; i++)
+            {
+                rng.NextDouble();
+            }
+
+            for (var i = curSplit; i < history.Count; i++)
             {
                 time += RandomlySelectSplit(history[i], rng);
             }
@@ -239,46 +249,50 @@ namespace LiveSplit.ChanceToBeat
         // The distribution of the index chosen is "truncated" geometric, with values
         // ranging from 0 to splits.Length - 1 and P(X = k + 1) = weight * P(X = k) in
         // the nonzero range. It turns out that if X is Uniform(0, 1), then
-        // floor(log_w(1 - (1 - w^N)X)) has the desired distribution.
+        // floor(log_weight(1 - (1 - w^N)X)) has the desired distribution.
+        //
+        // In the limits of weight 0 or 1, this converges to always choosing the last
+        // splits or a uniform distribution on the splits respectively.
         private TimeSpan RandomlySelectSplit(IList<TimeSpan> splits, Random rng)
         {
-            var roll = 0.0;
+            var roll = 0;
 
+            // We always do one invocation of rng.NextDouble() regardless of weight, to make the
+            // number of calls to rng consistent in each simulation to reduce visible fluctuations.
             if (Settings.Weight == 0.0)
             {
-                roll = 0.0;
+                roll = 0;
+                rng.NextDouble();
             }
             else if (Settings.Weight == 1.0)
             {
-                roll = rng.Next(0, splits.Count);
+                roll = (int)Math.Floor(rng.NextDouble() * splits.Count);
             }
             else
             {
-                roll = Math.Log(1 - (1 - Math.Pow(Settings.Weight, splits.Count)) * rng.NextDouble(), Settings.Weight);
+                var float_roll =
+                    Math.Log(1 - (1 - Math.Pow(Settings.Weight, splits.Count)) * rng.NextDouble(),
+                             Settings.Weight);
+                roll = (int)Math.Floor(float_roll);
             }
 
-            if (roll < 0.0)
+            if (roll < 0)
             {
-                roll = 0.0;
+                roll = 0;
             }
             else if (roll >= (splits.Count - 1))
             {
                 roll = splits.Count - 1;
             }
 
-            return splits[splits.Count - 1 - (int)Math.Floor(roll)];
+            return splits[splits.Count - 1 - roll];
         }
 
-        private double CompletionChance(int currentSplit)
+        private double CompletionChance(int curSplit)
         {
-            var completionChance = 1.0;
-
-            foreach (var resetChance in Settings.ChanceOfResetBySegment().Skip(currentSplit))
-            {
-                completionChance *= (100.0 - resetChance) / 100.0;
-            }
-
-            return completionChance;
+            return Settings.ChanceOfResetBySegment()
+                .Skip(curSplit)
+                .Aggregate(1.0, (acc, x) => acc * (1.0 - x));
         }
 
         private void AdjustProbabilityEstimate<T>(object sender, T e)
