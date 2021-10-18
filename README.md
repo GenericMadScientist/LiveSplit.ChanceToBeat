@@ -34,6 +34,4 @@ You can also change the background and text colours, if you're so inclined.
 ## Contact
 
 If you have any bug reports I would prefer they be reported on the GitHub page,
-but this isn't required. My Discord is GenericMadScientist#5303, and you can
-send me an e-mail at rayw1710@gmail.com. Discord will probably get you a quicker
-response.
+but this isn't required. My Discord is GMS#5303.
